@@ -4,10 +4,12 @@ import java.awt.GridLayout; //imports GridLayout library
 
 public class Snakey {
 
-    JFrame frame=new JFrame(); //creates frame
-    JButton[][] grid; //names the grid of buttons
+    static JFrame frame=new JFrame(); //creates frame
+    static JButton[][] grid; //names the grid of buttons
 
-    public Snakey(int width, int length){ //constructor
+    public static void main(String[] args) {
+        int width=20;
+        int length=20;
         frame.setLayout(new GridLayout(width,length)); //set layout
         grid=new JButton[width][length]; //allocate the size of gri
         for(int y=0; y<length; y++){
@@ -21,9 +23,7 @@ public class Snakey {
         frame.pack(); //sets appropriate size for frame
         frame.setVisible(true); //makes frame visible
         frame.setSize(500, 500);
-    }
-    public static void main(String[] args) {
-        
-        Snakey snake =new Snakey(20,20);//makes new ButtonGrid with 2 parameters
+        //grid is created
+
     }
 }
