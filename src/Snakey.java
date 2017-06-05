@@ -1,6 +1,6 @@
 import javax.swing.JFrame; //imports JFrame library
 import javax.swing.JButton; //imports JButton library
-import java.awt.GridLayout; //imports GridLayout library
+import java.awt.*;
 
 public class Snakey {
 
@@ -19,10 +19,15 @@ public class Snakey {
                 grid [x][y].setEnabled(false);//adds button to grid
             }
         }
+        snake food = new snake();
+        food.food(grid, width,length);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack(); //sets appropriate size for frame
         frame.setVisible(true); //makes frame visible
         frame.setSize(500, 500);
+
+
         //grid is created
 
     }
