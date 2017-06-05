@@ -1,6 +1,7 @@
-import javax.swing.JFrame; //imports JFrame library
-import javax.swing.JButton; //imports JButton library
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Snakey {
 
@@ -19,8 +20,16 @@ public class Snakey {
                 grid [x][y].setEnabled(false);//adds button to grid
             }
         }
+
         snake food = new snake();
-        food.food(grid, width,length);
+
+        Timer timer = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                food.food(grid, width,length);
+            }
+        });
+        timer.setRepeats(true);
+        timer.start();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack(); //sets appropriate size for frame
