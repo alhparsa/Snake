@@ -10,21 +10,24 @@ public class Snakey implements KeyListener{
     snake Snake = new snake();
     JFrame frame=new JFrame(); //creates frame
     JButton[][] grid; //names the grid of buttons
+    int foodposx;
+    int foodposy;
+    boolean foodonGrid=false;
+    int width=20;
+    int length=20;
 
-    private Snakey(int width, int length){ //constructor
+    private Snakey(){ //constructor
         frame.setLayout(new GridLayout(width,length)); //set layout
         grid=new JButton[width][length]; //allocate the size of grid
-        for(int y=0; y<length; y++){
-            for(int x=0; x<width; x++){
-                grid[x][y]=new JButton(); //creates new button
+        for(int y=0; y<length; y++) {
+            for (int x = 0; x < width; x++) {
+                grid[x][y] = new JButton(); //creates new button
                 frame.add(grid[x][y]);
-                grid [x][y].setEnabled(false);//adds button to grid
+                grid[x][y].setEnabled(false);//adds button to grid
             }
         }
 
-        snake food = new snake();
-
-        Timer timer = new Timer(1000, e -> food.food(grid, width,length));
+        Timer timer = new Timer(1000, e -> food());
         timer.setRepeats(true);
         timer.start();
         frame.setFocusable(true);
@@ -34,8 +37,24 @@ public class Snakey implements KeyListener{
         frame.setVisible(true); //makes frame visible
         frame.setSize(500, 500);
     }
+    protected void food(){
+            foodposx = (int) (Math.random() *width );
+            foodposy= (int) (Math.random() * length);
+            grid[foodposx][foodposy].setEnabled(true);
+            grid[foodposx][foodposy].setBackground(Color.ORANGE);
+            grid[foodposx][foodposy].setBorderPainted(false);
+            grid[foodposx][foodposy].setOpaque(true);
+            foodonGrid=true;
+    }
+
+
+
     public static void main(String[] args) {
-        new Snakey(20,20);//makes new ButtonGrid with 2 parameters
+        new Snakey();//makes new ButtonGrid with 2 parameters
+    }{
+        if(foodonGrid==false){
+            food();
+    }
     }
 
     @Override
@@ -46,6 +65,7 @@ public class Snakey implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         Snake.keyPress(e.getKeyCode());
+        Snake.movement();
         System.out.println("transferred");
     }
 

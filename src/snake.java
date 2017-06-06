@@ -18,7 +18,7 @@ class snake {
     boolean up = false;
 
 
-    private int movement() { //method for movement
+    protected void movement() { //method for movement
         if (keyID == 38 && down == false){ //up arrow button is pressed
             right = false;
             up = true;
@@ -39,17 +39,8 @@ class snake {
             down = false;
             up = false;
         }
+    }
 
-        return size;
-    }
-    protected void food(JButton[][] grid, int width, int length){
-        int randomx = (int)(Math.random()*width);
-        int randomy = (int)(Math.random()*length);
-        grid[randomx][randomy].setEnabled(true);
-        grid[randomx][randomy].setBackground(Color.ORANGE);
-        grid[randomx][randomy].setBorderPainted(false);
-        grid[randomx][randomy].setOpaque(true);
-    }
     protected void keyPress(int keyID){ //receives and stores the value of keyID in this.keyID
         this.keyID = keyID;
         System.out.println("key Pressed is: "+keyID);
