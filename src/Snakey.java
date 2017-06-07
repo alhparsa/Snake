@@ -65,8 +65,6 @@ public class Snakey implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         Snake.keyPress(e.getKeyCode());
-        Snake.movement();
-        System.out.println("transferred");
     }
 
     @Override
