@@ -33,7 +33,7 @@ public class Main implements KeyListener {
         frame.addKeyListener(this);
         frame.pack(); //sets appropriate size for frame
         frame.setVisible(true); //makes frame visible
-        frame.setSize(500, 500); //sets the size of frame
+        frame.setSize(1000, 1000); //sets the size of frame
     }
 
     public static void main(String[] args) {

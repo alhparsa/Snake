@@ -8,7 +8,11 @@ import java.util.ArrayList;
  */
 
 class snake {
-    int width = 50; int length = 50;
+    Food food = new Food(); //makes a new instant of food class
+
+
+    int width = 50;
+    int length = 50;
 
 
     int size = 2; //size of the snake
@@ -22,7 +26,7 @@ class snake {
     boolean up = false;
 
 
-    ArrayList<Integer> snakePos= new ArrayList<>();
+    ArrayList<Integer> snakePos = new ArrayList<>();
 
     int tracker = 3;
     // x and y represents the position of the snake when the game starts
@@ -38,27 +42,30 @@ class snake {
     }
 
     private void direction() { //method for direction
-        if (keyID == 38 && down == false){ //up arrow button is pressed
-            right = false;
-            up = true;
-            left = false;
+        if (x>1 && x<49 && y>1 && y<49) {
+            if (keyID == 38 && down == false) { //up arrow button is pressed
+                right = false;
+                up = true;
+                left = false;
+            }
+
+            if (keyID == 39 && left == false) { //right arrow button is pressed
+                right = true;
+                down = false;
+                up = false;
+            }
+            if (keyID == 40 && up == false) { //down arrow button is pressed
+                down = true;
+                left = false;
+                right = false;
+            }
+            if (keyID == 37 && right == false) { //left arrow button is pressed
+                left = true;
+                down = false;
+                up = false;
+            }
         }
 
-        if (keyID == 39 && left == false){ //right arrow button is pressed
-            right = true;
-            down = false;
-            up = false;
-        }
-        if (keyID == 40 && up == false){ //down arrow button is pressed
-            down = true;
-            left = false;
-            right = false;
-        }
-        if (keyID == 37 && right == false){ //left arrow button is pressed
-            left = true;
-            down = false;
-            up = false;
-        }
     }
 
     protected void posInitializer(JButton[][] grid) { //initializes the position of snake
@@ -97,46 +104,64 @@ class snake {
     }
 
     protected void body(JButton[][] grid, int length, int width) { //movement tracker and function
-        direction();
-        if (right){
-            x+=1;
-            colouring(grid,x,y);
-            tracker+=1;
-            tailFollower(grid);
-            snakePos.set(y*length+x,tracker);
-            tailtrack+=1;
+        if (x>1 && x<49 && y>1 && y<49) {
+            direction();
+            if (food.foodonGrid == false) {
+                food.food(grid);
+            }
+            if (right) {
+                if (food.foodposx == x && food.foodposy == y) {
+                    size++;
+                    food.foodonGrid = false;
+                }
+                x += 1;
+                colouring(grid, x, y);
+                tracker += 1;
+                tailFollower(grid);
+                snakePos.set(y * length + x, tracker);
+                tailtrack += 1;
+            }
+            if (left) {
+                if (food.foodposx == x && food.foodposy == y) {
+                    size++;
+                    food.foodonGrid = false;
+                }
+                x -= 1;
+                colouring(grid, x, y);
+                tracker += 1;
+                tailFollower(grid);
+                snakePos.set(y * length + x, tracker);
+                tailtrack += 1;
+            }
+            if (down) {
+                if (food.foodposx == x && food.foodposy == y) {
+                    food.foodonGrid = false;
+                    size++;
+                }
+                y += 1;
+                colouring(grid, x, y);
+                tracker += 1;
+                snakePos.set(y * 50 + x, tracker);
+                tailFollower(grid);
+                snakePos.set(y * length + x, tracker);
+                tailtrack += 1;
+
+
+            }
+            if (up) {
+                if (food.foodposx == x && food.foodposy == y) {
+                    food.foodonGrid = false;
+                    size++;
+                }
+                y -= 1;
+                colouring(grid, x, y);
+                tracker += 1;
+                snakePos.set(y * length + x, tracker);
+                tailFollower(grid);
+                tailtrack += 1;
+            }
+
         }
-        if (left){
-            x-=1;
-            colouring(grid,x,y);
-            tracker+=1;
-            tailFollower(grid);
-            snakePos.set(y*length+x,tracker);
-            tailtrack+=1;
-
-
-        }
-        if (down){
-            y+=1;
-            colouring(grid,x,y);
-            tracker+=1;
-            snakePos.set(y*50+x,tracker);
-            tailFollower(grid);
-            snakePos.set(y*length+x,tracker);
-            tailtrack+=1;
-
-
-        }
-        if (up){
-            y-=1;
-            colouring(grid,x,y);
-            tracker+=1;
-            snakePos.set(y*length+x,tracker);
-            tailFollower(grid);
-            tailtrack+=1;
-
-        }
-
 
     }
 
